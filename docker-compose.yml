@@ -1,0 +1,17 @@
+services:
+  # The databse service
+  db:
+    image: postgres:16-alpine
+    container_name: local-postgres
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: todo_db
+    ports:
+      - "5432:5432" # Localhost:5432 maps to container's 5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      
+# This saves the database data even if the container is removed
+volumes:
+  db_data:

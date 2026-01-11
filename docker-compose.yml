@@ -1,4 +1,19 @@
 services:
+  # The app service
+  app:
+    build: . # look for Dockerfile in current directory
+    container_name: devops-todo-app
+    ports:
+      - "3000:3000" # Localhost:3000 maps to container's 3000
+    environment:
+      DB_USER: myuser   # Database username
+      DB_PASSWORD: mypassword
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: todo_db
+    depends_on:
+      - db  # wait for the database service to be ready 
+
   # The databse service
   db:
     image: postgres:16-alpine

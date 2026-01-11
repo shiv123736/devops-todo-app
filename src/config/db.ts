@@ -4,14 +4,21 @@ import path from "path";
 
 // Read environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+const isProduction = process.env.NODE_ENV === 'production';
+const connectionString = isProduction ? process.env.DATABASE_URL : undefined;
 
 // Create a new PostgreSQL connection pool
 const pool = new Pool({
+    // If DATABASE_URL exists (Production), use it. Otherwise, assume Local config
+    connectionString: connectionString,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
     port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
     database: process.env.DB_NAME,
+
+    // SSL configuration for production
+    ssl: isProduction ? { rejectUnauthorized: false } : false,
 });
 
 // Add function to creat the todos table if it doesn't exist

@@ -1,6 +1,7 @@
 services:
   # The app service
   app:
+    image: devops-todo-app-app:latest
     build: . # look for Dockerfile in current directory
     container_name: devops-todo-app
     ports:

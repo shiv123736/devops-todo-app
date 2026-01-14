@@ -1,5 +1,5 @@
-describe('Chaos Test', () => {
-  it('should fail purposefully', () => {
-    expect(true).toBe(false);
+describe('Math Test', () => {
+  it('should add numbers correctly', () => {
+    expect(1 - 1).toBe(2);
   });
 });

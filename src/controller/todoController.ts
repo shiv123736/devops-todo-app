@@ -28,9 +28,9 @@ export const updateTodo = async (req: Request, res: Response): Promise<void> => 
         const { completed } = req.body;
         const updatedTodo = await updateTodoService(id, completed);
         res.json(updatedTodo);
-    } catch (error) {
-        console.log("Error creating todo:", error);
-        res.status(500).json({ error: "Update: Internal DB server error" });
+    } catch (_error) {
+        console.log("Error creating todo:", _error);
+        res.status(500).json({ _error: "Update: Internal DB server error" });
     }
 };
 

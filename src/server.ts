@@ -1,5 +1,5 @@
 import app from "./app";
-import pool, { initializeDB } from "./config/db"
+import pool, { initializeDB } from "./confg/db"
 
 const PORT = process.env.PORT || 3000;
 

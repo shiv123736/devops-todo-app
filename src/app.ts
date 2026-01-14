@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import homeRoute from "./route/homeRoute";
 import todoRoute from "./route/todoRoute";
 
+// App initialization
 const app: Application = express();
 
 // json middle ware

@@ -6,6 +6,7 @@ export const getTodos = async (_req: Request, res: Response): Promise<void> => {
         const todos = await getAllTodosService();
         res.json(todos);
     } catch (error) {
+        console.log("Error creating todo:", error);
         res.status(500).json({ error: "Get: Internal DB server error" });
     }
 };
@@ -16,6 +17,7 @@ export const createTodo = async (req: Request, res: Response): Promise<void> => 
         const newTodo = await createTodoService(task);
         res.status(201).json(newTodo);
     } catch (error) {
+        console.log("Error creating todo:", error);
         res.status(500).json({ error: "Create: Internal DB server error" });
     }
 };
@@ -27,6 +29,7 @@ export const updateTodo = async (req: Request, res: Response): Promise<void> => 
         const updatedTodo = await updateTodoService(id, completed);
         res.json(updatedTodo);
     } catch (error) {
+        console.log("Error creating todo:", error);
         res.status(500).json({ error: "Update: Internal DB server error" });
     }
 };
@@ -37,6 +40,7 @@ export const deleteTodo = async (req: Request, res: Response): Promise<void> => 
         await deleteTodoService(id);
         res.status(204).send();
     } catch (error) {
+        console.log("Error creating todo:", error);
         res.status(500).json({ error: "Delete: Internal DB server error" });
     }
 };

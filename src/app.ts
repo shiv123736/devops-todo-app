@@ -11,7 +11,8 @@ app.use(express.json());
 app.use("/api", homeRoute);
 app.use("/api", todoRoute);
 
-console.log("Password is 12345");
+var password = "12345";
+console.log("Password is: " + password);
 
 // Deafult route
 app.get("/", (_req: Request, res: Response) => {

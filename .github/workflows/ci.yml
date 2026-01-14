@@ -28,6 +28,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Step 4: Verify the build works
+      # Step 4: check for messy code
+      - name: Lint Code
+        run: npm run lint
+
+      # Step 5: check for broken logic
+      - name: Run Tests
+        run: npm test
+
+      # Step 6: Verify the build works
       - name: Compile TypeScript
         run: npm run build

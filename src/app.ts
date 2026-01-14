@@ -3,8 +3,6 @@ import homeRoute from "./route/homeRoute";
 import todoRoute from "./route/todoRoute";
 
 const app: Application = express();
-// ESLint hates 'var' and 'any'
-var dirtyVariable: any = "I should cause an error";
 
 // json middle ware
 app.use(express.json());

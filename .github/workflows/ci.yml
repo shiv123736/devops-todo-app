@@ -1,0 +1,33 @@
+name: CI Pipeline
+
+# Trigger: When does this run?
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+# Jobs: The actual work
+jobs:
+  build-and-test:
+    name: Build & Check
+    runs-on: ubuntu-latest  # "Rent" a latest Linux server
+
+    steps:
+      # Step 1: Download code from the repo
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Verify the build works
+      - name: Compile TypeScript
+        run: npm run build

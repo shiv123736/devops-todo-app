@@ -2,7 +2,7 @@ services:
   # The app service
   app:
     image: devops-todo-app-app:latest
-    build: . # look for Dockerfile in current directory
+    # build: . # look for Dockerfile in current directory
     container_name: devops-todo-app
     ports:
       - "3000:3000" # Localhost:3000 maps to container's 3000

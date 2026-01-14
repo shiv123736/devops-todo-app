@@ -1,5 +1,30 @@
+
+# 1. Dependencies (We install these fresh inside the image)
 node_modules
+
+# 2. Build Artifacts (We build fresh inside the image)
 dist
+coverage
+
+# 3. Environment Secrets (CRITICAL SECURITY)
+.env
+.env.production
+.env.test
+
+# 4. Git Metadata (Saves space)
 .git
 .gitignore
+
+# 5. Logs & System Junk
+npm-debug.log
+yarn-error.log
+*.log
+.DS_Store
+Thumbs.db
+
+# 6. IDE Settings
+.vscode
+.idea
+
+# 7. Documentation
 README.md

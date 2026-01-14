@@ -1,13 +1,13 @@
 import app from "./app";
-import pool from "./config/db"
+// import pool from "./config/db"
 
 const PORT = process.env.PORT || 3000;
 
 const startServer = async () => {
   try {
     // 1. Connect to DB
-    await pool.connect();
-    console.log("Connected to the PostgreSQL database successfully.");
+    // await pool.connect();
+    // console.log("Connected to the PostgreSQL database successfully.");
 
     // 2. Initialize DB (create tables if not exist)
     // await initializeDB();

@@ -1,24 +1,28 @@
 services:
   # The app service
   app:
-    image: devops-todo-app-app:latest
-    # build: . # look for Dockerfile in current directory
+    # image: devops-todo-app-app:latest
+    build: . # look for Dockerfile in current directory
     container_name: devops-todo-app
     ports:
       - "3000:3000" # Localhost:3000 maps to container's 3000
     environment:
-      DB_USER: myuser   # Database username
-      DB_PASSWORD: mypassword
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_NAME: todo_db
+      # DB_USER: myuser   # Database username
+      # DB_PASSWORD: mypassword
+      # DB_HOST: db
+      # DB_PORT: 5432
+      # DB_NAME: todo_db
+      # Replace 'localhost' with the service name 'local-postgres'
+      DATABASE_URL: postgresql://myuser:mypassword@local-postgres:5432/todo_db?schema=public
     depends_on:
       - db  # wait for the database service to be ready 
+      
 
   # The databse service
   db:
     image: postgres:16-alpine
     container_name: local-postgres
+    restart: always
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword

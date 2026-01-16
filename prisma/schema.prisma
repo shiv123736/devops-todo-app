@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// This block tells Prisma to create a table named "Todo"
+model Todo {
+  id        Int      @id @default(autoincrement()) // Auto-increasing Integer ID (1, 2, 3...)
+  task      String   // A text column
+  completed Boolean  @default(false) // Default to 'false' (Not done)
+  createdAt DateTime @default(now()) // Auto-stamp the creation time
+}

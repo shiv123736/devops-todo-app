@@ -34,7 +34,7 @@
 #           tags: ${{ secrets.DOCKER_USERNAME }}/devops-todo-app:latest
 
 
-name: Production Pipeline
+name: CI/CD Pipeline & Docker Publish
 
 on:
   push:
@@ -100,4 +100,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/devops-todo-app:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/todo-app:latest

@@ -13,9 +13,14 @@ app.use("/api", homeRoute);
 app.use("/api", todoRoute);
 
 
+// Health Check Route
+app.get("/health", (_req: Request, res: Response) => {
+  res.status(200).json({ status: "OK", message: "Server is healthy" });
+});
+
 // Deafult route
 app.get("/", (_req: Request, res: Response) => {
-  res.json({ message: "Welcome to DevsOps Todo App!" });
+  res.json({ message: "Welcome to Default route!" });
 });
 
 export default app;

@@ -2,7 +2,7 @@ services:
   # The app service
   app:
     # image: devops-todo-app-app:latest
-    image:
+    # image:
     build: . # look for Dockerfile in current directory
     container_name: devops-todo-app
     ports:
@@ -15,6 +15,12 @@ services:
       # DB_NAME: todo_db
       # Replace 'localhost' with the service name 'local-postgres'
       DATABASE_URL: postgresql://myuser:mypassword@local-postgres:5432/todo_db?schema=public
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
     depends_on:
       - db  # wait for the database service to be ready 
       

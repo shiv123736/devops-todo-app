@@ -1,46 +1,58 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { createTodoService, deleteTodoService, getAllTodosService, updateTodoService } from "../services/todoService";
+import { createTodoSchema, updateTodoSchema } from "../schema/todo.schema";
 
-export const getTodos = async (_req: Request, res: Response): Promise<void> => {
+export const getTodos = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const todos = await getAllTodosService();
         res.json(todos);
-    } catch (error) {
-        console.log("Error creating todo:", error);
-        res.status(500).json({ error: "Get: Internal DB server error" });
+    }  catch (error) {
+        next(error); // This sends it straight to your new middleware!
     }
 };
 
-export const createTodo = async (req: Request, res: Response): Promise<void> => {
+export const createTodo = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    // validate request body
+    const validation = createTodoSchema.safeParse(req.body);
+    if (!validation.success) {
+        res.status(400).json({ error: validation.error.issues });
+        return;
+    }
+
     try {
-        const { task } = req.body;
-        const newTodo = await createTodoService(task);
+        // const { task } = req.body;
+        const newTodo = await createTodoService(validation.data.task);
         res.status(201).json(newTodo);
     } catch (error) {
-        console.log("Error creating todo:", error);
-        res.status(500).json({ error: "Create: Internal DB server error" });
+        next(error); // This sends it straight to your new middleware!
     }
 };
 
-export const updateTodo = async (req: Request, res: Response): Promise<void> => {
+export const updateTodo = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    // validate request body
+    const validation = updateTodoSchema.safeParse(req.body);
+    if (!validation.success) {
+        res.status(400).json({ error: validation.error.issues });
+        return;
+    }
+
     try {
         const id = parseInt(req.params.id as string);
-        const { completed } = req.body;
-        const updatedTodo = await updateTodoService(id, completed);
+        // const { completed } = req.body;
+        const updatedTodo = await updateTodoService(id, validation.data.completed ?? false);
         res.json(updatedTodo);
-    } catch (_error) {
-        console.log("Error creating todo:", _error);
-        res.status(500).json({ _error: "Update: Internal DB server error" });
+    } catch (error) {
+        next(error); // This sends it straight to your new middleware!
     }
 };
 
-export const deleteTodo = async (req: Request, res: Response): Promise<void> => {
+export const deleteTodo = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const id = parseInt(req.params.id as string);
         await deleteTodoService(id);
         res.status(204).send();
     } catch (error) {
-        console.log("Error creating todo:", error);
-        res.status(500).json({ error: "Delete: Internal DB server error" });
+        next(error); // This sends it straight to your new middleware!
     }
 };
+
